@@ -21,7 +21,7 @@ async function submitWorkshop(workshop_id, taker_gnum) {
 	let takeresp = await fetch(`/api/members/${taker_gnum}/workshop/${workshop_id}`, {method:"POST"})
 	let takedata = await takeresp.json();
 
-	if(takedata == "AlreadyTook") {
+	if(takedata === "AlreadyTook") {
 		return false
 	} else {
 		return takedata;
@@ -124,6 +124,8 @@ function CheckInPage() {
 
 	let [workshops, setWorkshops] = useState([]);
 
+	let [autoWorkshop, setAutoWorkshop] = useState(null);
+
 	useEffect(() => {
 		let load_workshops = async () => {
 			let workshopsresp = await fetch("/api/workshops");
@@ -145,6 +147,15 @@ function CheckInPage() {
 				alarm.play()
 				setTimeout(() => alarm.pause(), 1000);
 			} else if (res.entry === "Allow") {
+				if(autoWorkshop && autoWorkshop !== "false") {
+					console.log("Adding workshop to customer");
+					let ws = await submitWorkshop(autoWorkshop, res.gnum);
+					if(ws) {
+						console.log(ws)
+						res.workshops.push(ws)
+					}
+				}
+
 				let ding = new Audio("ding.mp3")
 				ding.play()
 				setTimeout(() => ding.pause(), 2000);
@@ -169,7 +180,14 @@ function CheckInPage() {
 					<form className="tap_form" onSubmit={(e) => {e.preventDefault(); checkIn()}}>
 						<input value={cardNo} className="huge" autoFocus={true} type="text" onChange={(e) => setCardNo(e.target.value)} placeholder="Enter NetId or Tap a Card"/>
 					</form>
-					<div className="tap_form__links"><Link to="/panel">Control Panel</Link></div>
+					<div className="tap_form__links">
+					
+						<select value={autoWorkshop} onChange={(e)=>{setAutoWorkshop(e.target.value)}}>
+							<option value={false}>Auto Add Workshop...</option>
+							{workshops?.map((workshop) => <option key={workshop.id} value={workshop.id}>{workshop.name}</option>)}
+						</select>
+						<Link to="/panel">Control Panel</Link>
+					</div>
 				</div>
 				{loading && <Decision/>}
 				{decisions && decisions.map(
