@@ -38,7 +38,7 @@ function Decision({decision}) {
 			let ws = await fetch(`/api/members/${member}/workshop/${workshop}`, {method:"DELETE"});
 			let wsdat = await ws.json()
 
-			setMemberWorkshops(memberWorkshops.filter((ws) => ws.id == workshop))
+			setMemberWorkshops(memberWorkshops.filter((ws) => ws[1].id !== workshop))
 			return true;
 		} catch(e) {
 			return false;

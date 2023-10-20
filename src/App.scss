@@ -1,3 +1,48 @@
+//Credit for breakpoint mixins and screen size: https://medium.com/codeartisan/breakpoints-and-media-queries-in-scss-46e8f551e2f2
+$screen-xsm-min: 400px;
+$screen-sm-min: 576px;
+$screen-md-min: 768px;
+$screen-lg-min: 992px;
+$screen-xl-min: 1200px;
+
+@mixin xsm {
+   @media (min-width: #{$screen-xsm-min}) {
+       @content;
+   }
+}
+@mixin sm {
+   @media (min-width: #{$screen-sm-min}) {
+       @content;
+   }
+}
+@mixin md {
+   @media (min-width: #{$screen-md-min}) {
+       @content;
+   }
+}
+@mixin lg {
+   @media (min-width: #{$screen-lg-min}) {
+       @content;
+   }
+}
+@mixin xl {
+   @media (min-width: #{$screen-xl-min}) {
+       @content;
+   }
+}
+
+html {
+	font-size: 8px;
+
+	@include sm {
+		font-size: 10px;
+	}
+
+	@include md {
+		font-size: 14px;
+	}
+}
+
 body {
 	width: 100%;
 	height: 100%;
@@ -35,7 +80,10 @@ input[type="text"] {
 
 .alley {
 	padding-top: 5rem;
-	width:50rem;
+	width:90vw;
+	@include xsm {
+		width:50rem;
+	}
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -139,7 +187,13 @@ input[type="text"] {
 			border-radius: 8px;
 			padding: 1rem;
 			display: flex;
-			flex-wrap:wrap;
+
+			flex-direction: column;
+			@include md {
+				flex-direction: row;
+				font-size: inherit;
+				flex-wrap:wrap;
+			}
 			gap: 0.5rem;
 
 			&__title {
@@ -148,13 +202,16 @@ input[type="text"] {
 			}
 
 			&__workshop {
-				font-size: 1rem;
+				font-size: 1.5rem;
 				background-color: #CBD5E1;
 				display: flex;
 				align-items: center;
 				padding: 0.25rem 1rem;
 				justify-content: space-between;
 				border-radius: 8px;
+				@include md {
+					font-size:1rem;
+				}
 
 				&__name {
 				}
