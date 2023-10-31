@@ -1,5 +1,7 @@
 # Checker Frontend
 
+![CI](https://ci.concourse-ci.org/api/v1/teams/main/pipelines/concourse/jobs/checker_frontend/badge)
+
 React project for the MIX check-in application
 
 Use `yarn build --release` to build a release. Use `yarn start` to start the project for local development.
@@ -7,4 +9,3 @@ Use `yarn build --release` to build a release. Use `yarn start` to start the pro
 Run the backend at port 8000 when locally developing. Run the backend at port 8001 when in production, and configure nginx as a reverse proxy. 
 
 Currently, the goal is to keep this application as minimal as possible to reduce maintanance overhead. Do not add feature unless they are absolutely necessary.
-

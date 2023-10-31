@@ -1,0 +1,65 @@
+# DO NOT COMMIT THIS FILE: no secrets engine is configured, so secrets are stored in vars
+resources:
+- name: frontend_repo
+  type: git
+  source:
+    uri: https://github.com/dgramop/checker_frontend.git
+- name: backend_repo
+  type: git
+  source:
+    uri: https://github.com/dgramop/checker_backend.git
+
+jobs:
+- name: checker_frontend
+  plan:
+  - get: frontend_repo
+    trigger: true
+  - task: yarn_install
+    config:
+      inputs:
+      - name: frontend_repo
+      outputs:
+      - name: frontend_repo
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: node
+      params:
+        test: ((vault:test))
+      run:
+        path: yarn
+        args: [ install]
+        dir: frontend_repo
+  - task: yarn_build
+    config:
+      inputs:
+      - name: frontend_repo
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: node
+      run:
+        path: yarn
+        args: [ build ]
+        dir: frontend_repo
+- name: checker_backend
+  plan:
+  - get: backend_repo
+    trigger: true
+  - task: cargo_build
+    config:
+      inputs:
+      - name: backend_repo
+      outputs:
+      - name: backend_repo/target
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: rust
+      run:
+        path: cargo
+        args: [ build ]
+        dir: backend_repo
