@@ -1,6 +1,6 @@
 # Checker Frontend
 
-![CI](https://ci.concourse-ci.org/api/v1/teams/main/pipelines/concourse/jobs/checker_frontend/badge)
+![CI](https://ci.apps.dgramop.xyz/api/v1/teams/main/pipelines/concourse/jobs/checker_frontend/badge)
 
 React project for the MIX check-in application
 
