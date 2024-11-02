@@ -118,6 +118,7 @@ function CheckInPage() {
 	// TODO: utility to check people into workshops
 
 	let [cardNo, setCardNo] = useState("");
+	let [motdVisible, setMotdVisible] = useState(false);
 
 	let [loading, setLoading] = useState(false)
 	let [decisions, setDecisions] = useState([])
@@ -175,6 +176,10 @@ function CheckInPage() {
   return (
 		<CheckInContext.Provider value={{workshops, setWorkshops}}>
 			<div className="alley">
+                {motdVisible && <div className="card card--motd">
+                    <Close style={{cursor:"pointer"}} onClick={() => setMotdVisible(false)} />
+                    <p>Good morning!</p>
+                </div>}
 				<div className="card tap_form__container">
 					<div className="tap_form__title">MIX Check In</div>
 					<form className="tap_form" onSubmit={(e) => {e.preventDefault(); checkIn()}}>

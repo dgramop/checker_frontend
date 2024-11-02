@@ -118,6 +118,16 @@ input[type="text"] {
 		}
 	}
 
+    &--motd {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: #f0f9ff;
+        border: 2px solid #075985;
+        color: #075985;
+        font-weight: 600;
+    }
+
 	&--decision {
 		border: 2px solid black;
 
