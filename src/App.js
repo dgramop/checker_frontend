@@ -118,7 +118,7 @@ function CheckInPage() {
 	// TODO: utility to check people into workshops
 
 	let [cardNo, setCardNo] = useState("");
-	let [motdVisible, setMotdVisible] = useState(false);
+	let [motdVisible, setMotdVisible] = useState(true);
 
 	let [loading, setLoading] = useState(false)
 	let [decisions, setDecisions] = useState([])
@@ -178,7 +178,7 @@ function CheckInPage() {
 			<div className="alley">
                 {motdVisible && <div className="card card--motd">
                     <Close style={{cursor:"pointer"}} onClick={() => setMotdVisible(false)} />
-                    <p>Good morning!</p>
+                    <p><a href="https://dgramop.xyz">Dhruv</a> is funding mix projects: <a href="https://slushy.fund">slushy.fund</a></p>
                 </div>}
 				<div className="card tap_form__container">
 					<div className="tap_form__title">MIX Check In</div>
