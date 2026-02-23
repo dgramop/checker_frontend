@@ -22,7 +22,7 @@
           inherit yarnOfflineCache;
           
           dontStrip = true;
-          buildInputs = [pkgs.yarnConfigHook pkgs.yarnBuildHook pkgs.yarnInstallHook];
+          buildInputs = [pkgs.nodejs pkgs.yarnConfigHook pkgs.yarnBuildHook pkgs.yarnInstallHook];
           installPhase =  ''
           mkdir $out
           mv build $out/www
